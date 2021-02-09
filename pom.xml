@@ -15,6 +15,9 @@
     <description>baeldung ci/cd application</description>
     <properties>
         <java.version>11</java.version>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <docker.image.prefix>philitician</docker.image.prefix>
+        <jib-maven-plugin.version>2.7.1</jib-maven-plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -38,6 +41,20 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <configuration>
+                    <to>
+                        <image>${docker.image.prefix}/baeldung-ci-cd-process</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
+                </configuration>
             </plugin>
         </plugins>
     </build>
